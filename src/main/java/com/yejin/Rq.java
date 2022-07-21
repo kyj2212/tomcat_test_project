@@ -1,5 +1,9 @@
 package com.yejin;
 
+import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
@@ -44,4 +48,22 @@ public class Rq {
             throw new RuntimeException();
         }
     }
+
+    public void setAttr(String name, Object value){
+        req.setAttribute(name,value);
+    }
+
+    public void view(String path){
+        RequestDispatcher requestDispatcher = req.getRequestDispatcher("/jsp/"+path+".jsp");
+        try {
+            requestDispatcher.forward(req,resp);
+        } catch (ServletException e) {
+            System.out.println("/jsp/"+path+".jsp 없음");
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
 }
