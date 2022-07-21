@@ -53,6 +53,7 @@ display:inline-block;}
 <li class="fl tc w100 list t_line lt_line"><%=article.getTitle()%></li>
 <li class="fl tc w200 list t_line lt_line"><%=article.getBody()%></li>
 <li class="fl tc w300 list t_line lt_line"><%=article.getDate()%></li>
+
 </ul>
 <% } %>
 
