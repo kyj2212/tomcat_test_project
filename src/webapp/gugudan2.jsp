@@ -1,5 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="com.yejin.*"%>
 <style>
 .dan {
    width:100px;
@@ -19,9 +18,8 @@
 </style>
 <%@ page import="java.util.Date" %>
 <%
-Rq rq = new Rq(request,response);
-int dan = rq.getIntParam("dan",9);
-int limit = rq.getIntParam("limit",9);
+int dan = (int)request.getAttribute("dan");
+int limit = (int)request.getAttribute("limit");
 %>
 <html>
   <head>
