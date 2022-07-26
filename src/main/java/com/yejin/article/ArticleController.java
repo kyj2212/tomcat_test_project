@@ -26,4 +26,8 @@ public class ArticleController {
             articleDtos.add(new ArticleDto(i,("제목"+i),("내용"+i), new Date()));
         }
     }
+
+    public void showWrite(Rq rq) {
+        rq.view("/usr/article/write");
+    }
 }

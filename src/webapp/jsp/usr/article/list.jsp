@@ -33,7 +33,7 @@ display:inline-block;}
 }
 </style>
 <html>
-<title>목록</title>
+<title>게시물 목록</title>
 <h1>게시물 목록</h1>
 <%
 //ArticleDto articlea = new ArticleDto(1,"본문","제목",new Date());
