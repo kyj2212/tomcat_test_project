@@ -66,4 +66,23 @@ public class Rq {
 
     }
 
+    public String getMethod(){
+        return req.getMethod();
+    }
+
+    public String getPath() {
+        return req.getRequestURI();
+    }
+
+    public String getParam(String param,String defaultValue) {
+        String value = req.getParameter(param);
+
+        if (value == null)
+            return defaultValue;
+        try {
+            return value;
+        } catch (NumberFormatException e) {
+            return defaultValue;
+        }
+    }
 }

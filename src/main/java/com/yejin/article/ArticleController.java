@@ -10,10 +10,17 @@ import java.util.List;
 public class ArticleController {
 
 
+    private ArticleService articleService;
+    private List<ArticleDto> articleDtos;
+
+    public ArticleController(){
+        articleService=new ArticleService();
+    }
 
     public void showList(Rq rq) {
 
 
+       // System.out.println("showlist");
         List<ArticleDto> articleDtos = new ArrayList<>();
         addList(articleDtos);
         rq.setAttr("articles",articleDtos);
@@ -28,6 +35,27 @@ public class ArticleController {
     }
 
     public void showWrite(Rq rq) {
+       // System.out.println("showwrite");
         rq.view("/usr/article/write");
+    }
+
+    public void list(Rq rq){
+        articleDtos=articleService.list();
+        rq.setAttr("articles",articleDtos);
+        rq.view("/usr/article/list");
+    }
+
+    public void doWrite(Rq rq) {
+      //  System.out.println("dowrite");
+        String title= rq.getParam("title","");
+        String body = rq.getParam("body","");
+
+        // title,body 값이 없는 경우 앞단의 jsp 에서 js를 통해 이미 체크함
+        long id = articleService.write(title,body);
+        rq.appendBody("<div>%d 번 게시물이 등록되었습니다.</div>".formatted(id));
+        rq.appendBody("<div>title : %s</div>".formatted(title));
+        rq.appendBody("<div>body : %s</div>".formatted(body));
+
+        list(rq);
     }
 }

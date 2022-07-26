@@ -27,7 +27,7 @@ public class ArticleDto {
                 '}';
     }
 
-    public ArticleDto(int id, String title, String body, Date date){
+    public ArticleDto(long id, String title, String body, Date date){
         this.id=id;
         this.title=title;
         this.body=body;

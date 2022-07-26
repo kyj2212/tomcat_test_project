@@ -24,19 +24,41 @@ public class DispatchServlet extends HttpServlet {
         String url = req.getRequestURI();
 
         System.out.println(url);
+        System.out.println(rq.getMethod());
+        System.out.println(rq.getPath());
 
-        switch (url) {
-            case "/usr/article/list/free":
-                articleController.showList(rq);
+        switch(rq.getMethod()){
+
+            case "GET":
+                switch (rq.getPath()) {
+                    case "/usr/article/list/free":
+                        articleController.list(rq);
+                       // articleController.showList(rq);
+                        break;
+                    case "/usr/article/write/free":
+                        articleController.showWrite(rq);
+                        break;
+                    case "/usr/member/login":
+                        memberController.showLogin(rq);
+                        break;
+                }
                 break;
-            case "/usr/article/write/free":
-                articleController.showWrite(rq);
-                break;
-            case "/usr/member/login":
-                memberController.showLogin(rq);
+            case "POST":
+                switch (rq.getPath()) {
+                    case "/usr/article/write/free":
+                        articleController.doWrite(rq);
+                        break;
+                }
                 break;
         }
 
 
+
+
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        doGet(req,resp);
     }
 }

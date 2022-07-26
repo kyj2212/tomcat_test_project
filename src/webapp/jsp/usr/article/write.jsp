@@ -26,7 +26,7 @@ function ArticleSave__submitForm(form){
 
 
     <h1>게시물 작성</h1>
-    <form onsubmit="ArticleSave__submitForm(this); return false;">
+    <form method="POST" onsubmit="ArticleSave__submitForm(this); return false;">
         <div>
             <span>제목</span>
             <div>
