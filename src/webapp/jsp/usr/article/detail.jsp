@@ -1,11 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
 <%@ page import="com.yejin.article.dto.ArticleDto" %>
 
-
-<title>게시물</title>
-<h1>게시물</h1>
-
+<%@ include file="../common/head.jspf"%>
 <% ArticleDto article = (ArticleDto) request.getAttribute("article");%>
 <div>
 <%
@@ -34,4 +30,5 @@ onclick="location.href='/usr/article/delete/free/<%=article.getId()%>'">게시�
      <a href="#" class="bg-black text-white no-underline py-2 px-3 rounded" onclick="location.href='/usr/article/delete/free/<%=article.getId()%>'">삭제</a>
  </div>
 </div>
-</html>
+
+<%@ include file="../common/foot.jspf"%>

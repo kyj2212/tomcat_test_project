@@ -32,7 +32,7 @@
                         </p>
                          <%break;}%>
 						<h2 class="mb-4">
-							<a href="#" class="text-black text-xl md:text-2xl no-underline hover:underline">
+							<a href="/usr/article/detail/free/<%=article.getId()%>" class="text-black text-xl md:text-2xl no-underline hover:underline">
 								<%=article.getTitle()%>
 							</a>
 						</h2>
