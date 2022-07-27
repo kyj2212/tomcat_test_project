@@ -24,7 +24,6 @@ function ArticleSave__submitForm(form){
 }
 </script>
 
-
     <h1>게시물 작성</h1>
     <form method="POST" onsubmit="ArticleSave__submitForm(this); return false;">
         <div>

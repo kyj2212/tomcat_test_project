@@ -85,4 +85,52 @@ public class Rq {
             return defaultValue;
         }
     }
+
+    public long getLongParam(String param, long defaultValue){
+
+        String value = req.getParameter(param);
+        System.out.println(param+" : "+value);
+        if(value==null)
+            return defaultValue;
+        try{
+           // System.out.println(param+" : "+value);
+            return Long.parseLong(value);
+        } catch (NumberFormatException e){
+            return defaultValue;
+        }
+    }
+
+
+    public String getActionPath(){
+        //String path = req.getRequestURI();
+        String[] bits = req.getRequestURI().split("/");
+        // / 기준 세가지 단계만 보면 됨. 그 이후는 action이 아님
+        return "/%s/%s/%s".formatted(bits[1], bits[2], bits[3]);
+    }
+
+    public long getLongPathValueByIndex(int idx, long defaultValue){
+        String value= getPathValueByIndex(idx,null);
+        if(value==null){
+            return defaultValue;
+        }
+        try {
+            return Long.parseLong(value);
+        }catch(NumberFormatException e){
+            System.out.println("NumberFormatException");
+            return defaultValue;
+        }
+    }
+
+    public String getPathValueByIndex(int idx, String defaultValue){
+        String[] bits= req.getRequestURI().split("/");
+        try {
+            // bits[0] = "" //  첫번째 / 을 기준으로 왼쪽값이 없으므로 bits[0] 은 null
+            System.out.println("bits[0]"+bits[0]); // URI = /usr/article/(list/write/detail)/free/1/2/3/4/5
+            System.out.println("bits[4]"+bits[4]);
+            System.out.println("bits[4+idx]"+bits[4+idx]);
+            return bits[4+idx]; // [1]usr + [2]article + [3](list/write/detail) + [4]free + [4+idx]여기에 오는 path value
+        }catch(ArrayIndexOutOfBoundsException e){
+            return defaultValue;
+        }
+    }
 }

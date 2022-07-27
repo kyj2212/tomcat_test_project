@@ -44,4 +44,24 @@ public class ArticleRepository {
     public List<ArticleDto> list() {
         return articleDtoList;
     }
+
+    public List<ArticleDto> findAll() {
+        return articleDtoList;
+    }
+
+    public ArticleDto articleAt(long id) {
+        for(ArticleDto article :  articleDtoList){
+            if(article.getId()==id)
+                return article;
+        }
+        return null;
+    }
+
+    public ArticleDto findById(long id) {
+        for(ArticleDto article :  articleDtoList){
+            if(article.getId()==id)
+                return article;
+        }
+        return null;
+    }
 }

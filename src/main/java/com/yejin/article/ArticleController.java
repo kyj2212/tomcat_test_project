@@ -21,10 +21,8 @@ public class ArticleController {
 
 
        // System.out.println("showlist");
-        List<ArticleDto> articleDtos = new ArrayList<>();
-        addList(articleDtos);
+        List<ArticleDto> articleDtos = articleService.findAll();
         rq.setAttr("articles",articleDtos);
-
         rq.view("/usr/article/list");
 
     }
@@ -55,7 +53,27 @@ public class ArticleController {
         rq.appendBody("<div>%d 번 게시물이 등록되었습니다.</div>".formatted(id));
         rq.appendBody("<div>title : %s</div>".formatted(title));
         rq.appendBody("<div>body : %s</div>".formatted(body));
+        //rq.appendBody("<li><a href =\"/usr/article/detail/free/%d\">%d</a></li>".formatted(id,id));
 
-        list(rq);
+
+
+        showList(rq);
     }
+
+    public void showDetail(Rq rq){
+        long id = rq.getLongPathValueByIndex(1,0);// url/"" 뒤에 오는 1번째 오는 param  가져오기
+        System.out.println(id);
+        ArticleDto articleDto = articleService.findById(id);
+        rq.setAttr("article",articleDto);
+        rq.view("usr/article/detail");
+    }
+
+    public void showArticle(Rq rq){
+        long id=rq.getLongParam("id",0);
+        rq.setAttr("id",id);
+        ArticleDto articleDto = articleService.articleAt(id);
+        rq.setAttr("article",articleDto);
+        rq.view("usr/article/content");
+    }
+
 }
