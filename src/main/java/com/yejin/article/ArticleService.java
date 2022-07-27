@@ -13,9 +13,9 @@ public class ArticleService {
         articleRepository = ArticleRepository.getInstance();
     }
 
-    public long write(String title, String body){
+    public long write(String title, String body,String writer){
 
-        return articleRepository.write(title,body);
+        return articleRepository.write(title,body,writer);
     }
 
     public List<ArticleDto> list() {
@@ -32,5 +32,13 @@ public class ArticleService {
 
     public ArticleDto findById(long id){
         return articleRepository.findById(id);
+    }
+
+    public void modify(long id, String title, String body,String writer) {
+        articleRepository.modify(id,title,body,writer);
+    }
+
+    public void delete(long id) {
+        articleRepository.delete(id);
     }
 }

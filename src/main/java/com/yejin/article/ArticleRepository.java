@@ -34,9 +34,9 @@ public class ArticleRepository {
 
 
 
-    public long write(String title, String body){
+    public long write(String title, String body,String writer){
         long id = ++lastId;
-        ArticleDto newArticleDto = new ArticleDto(id,title,body,  new Date());
+        ArticleDto newArticleDto = new ArticleDto(id,title,body, writer, new Date());
         articleDtoList.add(newArticleDto);
         return id;
     }
@@ -63,5 +63,25 @@ public class ArticleRepository {
                 return article;
         }
         return null;
+    }
+
+    public int getIdx(long id) {
+        for(int i=0;i<articleDtoList.size();i++){
+            if(articleDtoList.get(i).getId()==id)
+                return i;
+        }
+        return -1;
+    }
+
+    public void modify(long id, String title, String body,String writer) {
+        int idx=getIdx(id);
+        ArticleDto newArticleDto = new ArticleDto(id,title,body, writer, new Date());
+        //articleDtoList.remove(id);
+        articleDtoList.set(idx,newArticleDto);
+    }
+
+    public void delete(long id) {
+        int idx=getIdx(id);
+        articleDtoList.remove(idx);
     }
 }
