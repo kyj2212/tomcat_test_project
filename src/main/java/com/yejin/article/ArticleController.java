@@ -56,7 +56,8 @@ public class ArticleController {
         rq.appendBody("<button><a href =\"/usr/article/detail/free/%d\">게시물 %d</a></button>".formatted(id,id));
         rq.appendBody("<button><a href =\"/usr/article/list/free/\">게시물 목록</a></button>".formatted(id,id));
 
-        showList(rq);
+        //rq.replace("<div>%d 번 게시물이 등록되었습니다.</div>".formatted(id));
+        //showList(rq);
     }
 
     public void showDetail(Rq rq){
@@ -84,18 +85,21 @@ public class ArticleController {
 
     public void doModify(Rq rq) {
         //  System.out.println("dowrite");
+        long id = rq.getLongParam("id",0);
+        if (articleService.findById(id) == null) {
+            rq.historyBack("해당 글이 존재하지 않습니다.");
+            return;
+        }
         String title= rq.getParam("title","");
         String body = rq.getParam("body","");
         String writer = rq.getParam("writer","");
-        long id = rq.getLongParam("id",0);
-        // title,body 값이 없는 경우 앞단의 jsp 에서 js를 통해 이미 체크함
+
         articleService.modify(id,title,body,writer);
-        rq.appendBody("<div>%d 번 게시물이 수정되었습니다.</div>".formatted(id));
-       // rq.appendBody("<div>title : %s</div>".formatted(title));
-       // rq.appendBody("<div>body : %s</div>".formatted(body));
-        rq.appendBody("<button><a href =\"/usr/article/detail/free/%d\">해당 게시물로 이동</a></button>".formatted(id,id));
+        //rq.appendBody("<div>%d 번 게시물이 수정되었습니다.</div>".formatted(id));
+        //rq.appendBody("<button><a href =\"/usr/article/detail/free/%d\">해당 게시물로 이동</a></button>".formatted(id,id));
 
         //showList(rq);
+        rq.replace("/usr/article/detail/free/%d".formatted(id), "%d번 게시물이 수정되었습니다.".formatted(id));
     }
 
     public void doDelete(Rq rq) {
@@ -116,9 +120,11 @@ public class ArticleController {
 
 
         articleService.delete(id);
-        rq.appendBody("<div>%d 번 게시물이 삭제되었습니다.</div>".formatted(id));
+        rq.replace("/usr/article/list/free", "%d번 게시물이 삭제되었습니다.".formatted(id));
+
+       // rq.appendBody("<div>%d 번 게시물이 삭제되었습니다.</div>".formatted(id));
         // rq.appendBody("<div>title : %s</div>".formatted(title));
         // rq.appendBody("<div>body : %s</div>".formatted(body));
-        rq.appendBody("<button><a href =\"/usr/article/list/free\">게시물 목록</a></button>");
+       // rq.appendBody("<button><a href =\"/usr/article/list/free\">게시물 목록</a></button>");
     }
 }

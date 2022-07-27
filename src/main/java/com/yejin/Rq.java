@@ -133,4 +133,51 @@ public class Rq {
             return defaultValue;
         }
     }
+
+
+
+    public void replace(String uri, String msg) {
+        if (msg != null && msg.trim().length() > 0) {
+            println("""
+                    <script>
+                    alert("%s");
+                    </script>
+                    """.formatted(msg));
+        }
+
+        println("""
+                <script>
+                location.replace("%s");
+                </script>
+                """.formatted(uri));
+    }
+
+
+    public void println(String str) {
+        print(str+"\n");
+    }
+
+    public void print(String str) {
+        try{
+            resp.getWriter().append(str);
+        }catch (IOException e){
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void historyBack(String msg) {
+        if (msg != null && msg.trim().length() > 0) {
+            println("""
+                    <script>
+                    alert("%s");
+                    </script>
+                    """.formatted(msg));
+        }
+
+        println("""
+                <script>
+                history.back();
+                </script>
+                """);
+    }
 }
